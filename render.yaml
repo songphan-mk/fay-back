@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: fay-back
+    env: go
+    repo: https://github.com/songphan-mk/fay-back
+    branch: main
+    buildCommand: "go build -o app ."
+    startCommand: "./app"
+    envVars:
+      - key: EXAMPLE_ENV_VAR
+        value: example_value
