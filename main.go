@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"os"
 )
 
 // Request struct to map the JSON request
@@ -49,7 +50,11 @@ func handler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	http.HandleFunc("/api", handler)
 
-	log.Println("Server starting on port 443 with HTTPS...")
-	// Provide the paths to your certificate and key files
-	log.Fatal(http.ListenAndServeTLS(":443", "cert.pem", "key.pem", nil))
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080" // Default port if not specified
+	}
+
+	log.Println("Server starting on port " + port + "...")
+	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
